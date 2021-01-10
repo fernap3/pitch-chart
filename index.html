@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pitch Accent chart generator</title>
+	<style>
+		html,body {
+			font-family: Roboto, sans-serif;
+		}
+		#search-results {
+			position: absolute;
+			height: 300px;
+			width: 100px;
+			border: 1px solid darkgray;
+			border-radius: 3px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		#search-results li {
+			cursor: pointer;
+			padding: 0 .5em;
+		}
+		#search-results li:hover {
+			background: lightgray;
+		}
+	</style>
+	<script defer src="app.js"></script>
+</head>
+<body>
+	<input id="pitch-input" type="text">
+	<select id="particle-pitch"><option value="low" selected>Low particle</option><option value="high">High particle</option></select>
+	<button id="download-image" type="button">Download PNG</button>
+	<button id="copy-image" type="button">Copy image to clipboard</button>
+	<select id="background-style"><option value="transparent">Transparent background</option><option value="color" selected>Background color</option></select>
+	<input id="background-color" type="color" placeholder="Background color" value="#ffffff">
+	<input id="pitch-lookup" type="text">
+	<div id="pitch-chart"></div>
+</body>
+</html>
