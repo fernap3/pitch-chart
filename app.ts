@@ -175,10 +175,10 @@ function onPitchSearchInput(): void
 	showSearchResults(results);
 }
 
-function pitchStringFromWord(word: string, pitchNum: number): string
+function pitchStringFromReading(reading: string, pitchNum: number): { pitchString: string, particle: "high" | "low" }
 {
 	let pitchString = "";
-	const wordPlusParticleLength = word.length + 1;
+	const wordPlusParticleLength = reading.length + 1;
 	
 	for (let i = 0; i < wordPlusParticleLength; i++)
 	{
@@ -188,7 +188,7 @@ function pitchStringFromWord(word: string, pitchNum: number): string
 			pitchString += "L";
 	}
 
-	return pitchString;
+	return { pitchString: pitchString.slice(0, pitchString.length - 1), particle: pitchString.endsWith("H") ? "high" : "low" };
 }
 
 const searchResultsBox = document.createElement("ul");
@@ -208,8 +208,12 @@ function showSearchResults(results: [string, number[]][]): void
 	{
 		const item = document.createElement("li");
 		item.textContent = result[0];
-		item.onclick = () => {
-			displayPitch(pitchStringFromWord(result[0], result[1][0])); // TODO there can be multiple pitch alternatives
+		item.onclick = () =>
+		{
+			console.log("Not currently supported. Must look up the reading for the word before this can be implemented");
+			
+			// const { pitchString, particle } = pitchStringFromReading(result[0], result[1][0]);
+			// displayPitch(pitchString, particle); // TODO there can be multiple pitch alternatives
 			hideSearchResults();
 		};
 		searchResultsBox.appendChild(item);
@@ -223,9 +227,10 @@ function hideSearchResults(): void
 	searchResultsBox.hidden = true;
 }
 
-function displayPitch(pitchString: string): void
+function displayPitch(pitchString: string, particle: "low" | "high"): void
 {
 	pitchInput.value = pitchString;
+	particlePitchInput.value = particle;
 	refreshSvg();
 }
 
