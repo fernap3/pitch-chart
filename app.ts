@@ -22,6 +22,14 @@ function refreshSvg()
 {
 	const pitchString = pitchInput.value.toUpperCase().split("").filter(c => c === "L" || c === "H").join("");
 	pitchInput.value = pitchString;
+
+	// For certain known pitch patterns, automatically set the particle pitch to what it should be
+	if (pitchString.charAt(0) === "H" && pitchString.charAt(1) === "L")
+		particlePitchInput.value = "low";
+	else if (pitchString.charAt(0) === "L" && pitchString.charAt(pitchString.length - 1) === "L")
+		particlePitchInput.value = "low";
+	else if (pitchString.charAt(0) === "L" && pitchString.charAt(pitchString.length - 1) === "H")
+		particlePitchInput.value = "high";
 	
 	const svg = generateSvg(pitchString, particlePitchInput.value as "high" | "low");
 	svg.style.height = "100px";
@@ -211,9 +219,6 @@ function showSearchResults(results: [string, number[]][]): void
 		item.onclick = () =>
 		{
 			console.log("Not currently supported. Must look up the reading for the word before this can be implemented");
-			
-			// const { pitchString, particle } = pitchStringFromReading(result[0], result[1][0]);
-			// displayPitch(pitchString, particle); // TODO there can be multiple pitch alternatives
 			hideSearchResults();
 		};
 		searchResultsBox.appendChild(item);
@@ -225,13 +230,6 @@ function showSearchResults(results: [string, number[]][]): void
 function hideSearchResults(): void
 {
 	searchResultsBox.hidden = true;
-}
-
-function displayPitch(pitchString: string, particle: "low" | "high"): void
-{
-	pitchInput.value = pitchString;
-	particlePitchInput.value = particle;
-	refreshSvg();
 }
 
 type PitchDictionary = { [word: string]: number[] };
