@@ -28,8 +28,8 @@ function refreshSvg()
 		particlePitchInput.value = "low";
 	else if (pitchString.charAt(0) === "L" && pitchString.charAt(pitchString.length - 1) === "L")
 		particlePitchInput.value = "low";
-	else if (pitchString.charAt(0) === "L" && pitchString.charAt(pitchString.length - 1) === "H")
-		particlePitchInput.value = "high";
+	// else if (pitchString.charAt(0) === "L" && pitchString.charAt(pitchString.length - 1) === "H")
+		// particlePitchInput.value = "high";
 	
 	const svg = generateSvg(pitchString, particlePitchInput.value as "high" | "low");
 	svg.style.height = "100px";
